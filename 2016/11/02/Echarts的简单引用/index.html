@@ -6,14 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>3dimension Team&#39;s Blog</title>
+  <title>Echarts的简单引用 | 3dimension Team&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="3dimension Team's Blog">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="Echarts的简单引用ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。
+丰富的图表类型ECharts 提供了常规的折线图，柱状图，散点图，饼图，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Echarts的简单引用">
+<meta property="og:url" content="http://yoursite.com/2016/11/02/Echarts的简单引用/index.html">
 <meta property="og:site_name" content="3dimension Team's Blog">
+<meta property="og:description" content="Echarts的简单引用ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。
+丰富的图表类型ECharts 提供了常规的折线图，柱状图，散点图，饼图，">
+<meta property="og:image" content="http://yoursite.com/Wei-Chen/img/broken_line.png">
+<meta property="og:image" content="http://yoursite.com/Wei-Chen/img/bar.png">
+<meta property="og:image" content="http://yoursite.com/Wei-Chen/img/pie.png">
+<meta property="og:image" content="http://yoursite.com/Wei-Chen/img/echartDemo.png">
+<meta property="og:updated_time" content="2016-11-02T14:35:05.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="3dimension Team's Blog">
+<meta name="twitter:title" content="Echarts的简单引用">
+<meta name="twitter:description" content="Echarts的简单引用ECharts，一个纯 Javascript 的图表库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的 Canvas 类库 ZRender，提供直观，生动，可交互，可高度个性化定制的数据可视化图表。
+丰富的图表类型ECharts 提供了常规的折线图，柱状图，散点图，饼图，">
+<meta name="twitter:image" content="http://yoursite.com/Wei-Chen/img/broken_line.png">
   
     <link rel="alternative" href="/atom.xml" title="3dimension Team&#39;s Blog" type="application/atom+xml">
   
@@ -130,9 +142,7 @@
 </nav>
 
       <div class="body-wrap">
-        
-  
-    <article id="post-Echarts的简单引用" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-Echarts的简单引用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <input type="hidden" class="isFancy" />
@@ -141,8 +151,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/02/Echarts的简单引用/">Echarts的简单引用</a>
+    <h1 class="article-title" itemprop="name">
+      Echarts的简单引用
     </h1>
   
 
@@ -196,159 +206,64 @@
   </div>
 </article>
 
-
-
-
-
-
-
-
-
-
   
-    <article id="post-Nginx-服务器的搭建与通过配置解决同源跨域问题" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/01/Nginx-服务器的搭建与通过配置解决同源跨域问题/">Nginx 服务器的搭建与通过配置解决同源跨域问题</a>
-    </h1>
   
+    <a href="/2016/11/01/Nginx-服务器的搭建与通过配置解决同源跨域问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Nginx 服务器的搭建与通过配置解决同源跨域问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本团队在主打产品CRM中通过前端AngularJS调用后台NodeJS接口用了Ajax技术，但是这样问题就出现了，由于NodeJs启动服务与AngularJs用Ajax调用接口同样来自于同一台IP的服务器但是端口不一样，所以产生了同源跨域问题。为此我记录一下内容为了解决同源跨域问题。</p>
-<h2 id="什么是同源跨域问题呢？"><a href="#什么是同源跨域问题呢？" class="headerlink" title="什么是同源跨域问题呢？"></a>什么是同源跨域问题呢？</h2><p>首先浏览器安全的基石是”同源政策”（same-origin policy）。最初，它的含义是指，A网页设置的 Cookie，B网页不能打开，除非这两个网页”同源”。所谓”同源”指的是”三个相同”。仅有同协议，同端口和同IP才可以被称为同源。</p>
-<p>同源政策的目的，是为了保证用户信息的安全，防止恶意的网站窃取数据。 设想这样一种情况：A网站是一家银行，用户登录以后，又去浏览其他网站。如果其他网站可以读取A网站的 Cookie，会发生什么？ 很显然，如果 Cookie 包含隐私（比如存款总额），这些信息就会泄漏。更可怕的是，Cookie 往往用来保存用户的登录状态，如果用户没有退出登录，其他网站就可以冒充用户，为所欲为。因为浏览器同时还规定，提交表单不受同源政策的限制。 由此可见，”同源政策”是必需的，否则 Cookie 可以共享，互联网就毫无安全可言了。</p>
-<p>之后，随着互联网的发展，”同源政策”越来越严格。目前，如果非同源，共有三种行为受到限制。</p>
-<ul>
-<li>Cookie、LocalStorage和IndexDB无法读取</li>
-<li>DOM无法获取</li>
-<li>AJAX请求不能发送（本项目所拥有的问题）</li>
-</ul>
-<p>虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。下面，我将详细介绍，如何规避上面三种限制。</p>
-<p>其中AJAX请求不能发送是本项目拥有的问题，虽然有些浏览器，例如Chrome可以输入以下命令进入安全模式可以暂时忽略跨域问题，但是这治标不治本。</p>
-<p><strong>Mac使用方法</strong></p>
-<p><code>$  open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir</code></p>
-<h2 id="通过配置Nginx来解决同源跨域问题"><a href="#通过配置Nginx来解决同源跨域问题" class="headerlink" title="通过配置Nginx来解决同源跨域问题"></a>通过配置Nginx来解决同源跨域问题</h2><p>我使用的环境是64位 Ubuntu 14.04。nginx依赖以下模块：</p>
-<ul>
-<li>gzip模块需要 zlib 库</li>
-</ul>
-<ul>
-<li>rewrite模块需要 pcre 库</li>
-</ul>
-<ul>
-<li>ssl 功能需要openssl库</li>
-</ul>
-<p>以下省略三个库的安装过程，直接进入配置详情讲解。</p>
-<p>例如：</p>
-<p><strong>NodeJS为 <a href="http://192.168.10.107:3000" target="_blank" rel="external">http://192.168.10.107:3000</a> 为例</strong></p>
-<p><strong>AngularJs调用端口为8000端口</strong></p>
-<pre><code>location / 
-{     
-    root   qiantai;   #项目名 必须在根目录路径下 项目文件夹
-    index  index.html index.htm;  #项目主页  必须在项目目录路径下
-}
-location ^~ /u-routeasasoe/ {
-    proxy_pass  http://192.168.10.107:3000;   #转发地址及相应端口号
-    proxy_redirect    off;  
-    proxy_set_header  Host $host;
-    proxy_set_header  X-Real-IP  $remote_addr;  
-    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
-}
-</code></pre><p>则需要将所有为<code>/u-routeasaseo</code>开头的接口统统转化成 <strong><a href="http://192.168.10.107:3000" target="_blank" rel="external">http://192.168.10.107:3000</a></strong>发出的变为同IP,同端口，同协议保证同源已解决问题。</p>
 
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/01/Nginx-服务器的搭建与通过配置解决同源跨域问题/" class="archive-article-date">
-  	<time datetime="2016-11-01T15:21:24.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-01</time>
-</a>
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx-同源跨域/">Nginx 同源跨域</a></li></ul>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">Share to: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+	    <a class="jiathis_button_twitter"></a>
+	    <a class="jiathis_button_plus"></a> 
+	    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
-
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+	<script type="text/javascript" src="//v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
 
 
 
 
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Echarts的简单引用" data-title="Echarts的简单引用" data-url="http://yoursite.com/2016/11/02/Echarts的简单引用/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"litten-hexo"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/01/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      <a href="/2016/11/01/hello-world/" class="archive-article-date">
-  	<time datetime="2016-11-01T13:57:35.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-01</time>
-</a>
-      
-      
-
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-
-
-
-
-
-  
-  
 
 
       </div>
@@ -370,8 +285,8 @@ location ^~ /u-routeasasoe/ {
 		fancybox: true,
 		mathjax: false,
 		animate: true,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
