@@ -236,7 +236,7 @@
 <p>虽然这些限制是必要的，但是有时很不方便，合理的用途也受到影响。下面，我将详细介绍，如何规避上面三种限制。</p>
 <p>其中AJAX请求不能发送是本项目拥有的问题，虽然有些浏览器，例如Chrome可以输入以下命令进入安全模式可以暂时忽略跨域问题，但是这治标不治本。</p>
 <p><strong>Mac使用方法</strong></p>
-<p><code>$  open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir</code></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$  open -a /Applications/Google\ Chrome.app --args --disable-web-security --user-data-dir</div></pre></td></tr></table></figure>
 <h2 id="通过配置Nginx来解决同源跨域问题"><a href="#通过配置Nginx来解决同源跨域问题" class="headerlink" title="通过配置Nginx来解决同源跨域问题"></a>通过配置Nginx来解决同源跨域问题</h2><p>我使用的环境是64位 Ubuntu 14.04。nginx依赖以下模块：</p>
 <ul>
 <li>gzip模块需要 zlib 库</li>
@@ -251,19 +251,8 @@
 <p>例如：</p>
 <p><strong>NodeJS为 <a href="http://192.168.10.107:3000" target="_blank" rel="external">http://192.168.10.107:3000</a> 为例</strong></p>
 <p><strong>AngularJs调用端口为8000端口</strong></p>
-<pre><code>location / 
-{     
-    root   qiantai;   #项目名 必须在根目录路径下 项目文件夹
-    index  index.html index.htm;  #项目主页  必须在项目目录路径下
-}
-location ^~ /u-routeasasoe/ {
-    proxy_pass  http://192.168.10.107:3000;   #转发地址及相应端口号
-    proxy_redirect    off;  
-    proxy_set_header  Host $host;
-    proxy_set_header  X-Real-IP  $remote_addr;  
-    proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;
-}
-</code></pre><p>则需要将所有为<code>/u-routeasaseo</code>开头的接口统统转化成 <strong><a href="http://192.168.10.107:3000" target="_blank" rel="external">http://192.168.10.107:3000</a></strong>发出的变为同IP,同端口，同协议保证同源已解决问题。</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">location / </div><div class="line">&#123;     </div><div class="line">	root   qiantai;   #项目名 必须在根目录路径下 项目文件夹</div><div class="line">	index  index.html index.htm;  #项目主页  必须在项目目录路径下</div><div class="line">&#125;</div><div class="line">location ^~ /u-routeasasoe/ &#123;</div><div class="line">	proxy_pass  http://192.168.10.107:3000;   #转发地址及相应端口号</div><div class="line">	proxy_redirect    off;  </div><div class="line">	proxy_set_header  Host $host;</div><div class="line">	proxy_set_header  X-Real-IP  $remote_addr;  </div><div class="line">	proxy_set_header  X-Forwarded-For $proxy_add_x_forwarded_for;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>则需要将所有为<code>/u-routeasaseo</code>开头的接口统统转化成 <strong><a href="http://192.168.10.107:3000" target="_blank" rel="external">http://192.168.10.107:3000</a></strong>发出的变为同IP,同端口，同协议保证同源已解决问题。</p>
 
       
     </div>
