@@ -48,7 +48,19 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/photos">相册</a></li>
+				<li><a href="/Zecheng-Chow">chou</a></li>
+	        
+				<li><a href="/Wei-Chen">陈伟</a></li>
+	        
+				<li><a href="/Yan-Chang">张艳</a></li>
+	        
+				<li><a href="/Lipeng-Xie">谢俐鹏</a></li>
+	        
+				<li><a href="/Wenbing-Chen">陈文冰</a></li>
+	        
+				<li><a href="/Liang-Chang">常亮</a></li>
+	        
+				<li><a href="/Xianrui-Chen">陈贤瑞</a></li>
 	        
 			</ul>
 		</nav>
@@ -78,9 +90,7 @@
 				
 					<a class="github" target="_blank" href="https://github.com/the3dimension" title="github">github</a>
 		        
-					<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-		        
-					<a class="mail" target="_blank" href="/the3dimension@163.com" title="mail">mail</a>
+					<a class="mail" target="_blank" href="mailto:the3dimension@163.com" title="mail">mail</a>
 		        
 			</div>
 		</nav>
@@ -110,7 +120,19 @@
 				
 					<li><a href="/">主页</a></li>
 		        
-					<li><a href="/photos">相册</a></li>
+					<li><a href="/Zecheng-Chow">chou</a></li>
+		        
+					<li><a href="/Wei-Chen">陈伟</a></li>
+		        
+					<li><a href="/Yan-Chang">张艳</a></li>
+		        
+					<li><a href="/Lipeng-Xie">谢俐鹏</a></li>
+		        
+					<li><a href="/Wenbing-Chen">陈文冰</a></li>
+		        
+					<li><a href="/Liang-Chang">常亮</a></li>
+		        
+					<li><a href="/Xianrui-Chen">陈贤瑞</a></li>
 		        
 				</ul>
 			</nav>
@@ -119,9 +141,7 @@
 					
 						<a class="github" target="_blank" href="https://github.com/the3dimension" title="github">github</a>
 			        
-						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
-			        
-						<a class="mail" target="_blank" href="/the3dimension@163.com" title="mail">mail</a>
+						<a class="mail" target="_blank" href="mailto:the3dimension@163.com" title="mail">mail</a>
 			        
 				</div>
 			</nav>
@@ -131,6 +151,76 @@
 
       <div class="body-wrap">
         
+  
+    <article id="post-mongodb可视化管理工具显示数据问题" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/11/03/mongodb可视化管理工具显示数据问题/">mongodb可视化管理工具显示数据问题</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>团队前期在选择数据库时决定采用MongoDB ，但mongodb3.0以后采用的都是wiredTiger 存储引擎，导致data文件里存储的都是wt文件。l是一个基于分布式文件存储的数据库，由 C++ 语言编写，旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。</p>
+<p>但是在使用数据库可视化管理工具时出现了问题，无论是采用Robomongo还是MongoVUE都无法显示数据库的内容，就是无法通过工具来查看数据库中的内容。后来上网查找以后才知道是MongoDB 的版本问题，如果依旧采用MongoDB 2.0以上版本是不会出现这个问题的，但是如果想用MongoDB 3.0版本以上才会出现这个问题。解决这个问题有以下三个方案：</p>
+<p>1）最简单的方法就是继续使用MongoDB 2.0以上版本（不包括3以上版本）；</p>
+<p>2）使用其他版本MongoDB 可视化管理工具：</p>
+<p>3）针对这个问题，后来查询发现是两个版本所运行的引擎有所不同，  查询了才发现MongoDB 3.0以上版本是运行在wiredTiger 引擎，MongoDB 2.0以上版本是运行在MMAPv1引擎上，Robomongo和MongoVUE目前的版本只支援 MMAPv1 引擎，所以Robomongo和MongoVUE并不能查看数据库数据。</p>
+<p>主要操作过程：</p>
+<h5 id="第一步："><a href="#第一步：" class="headerlink" title="第一步："></a>第一步：</h5><p>首先安装好数据库以后，查看是否具有以下目录：</p>
+<p><img src="/Yan-Chang/img/1.png" alt="1"></p>
+<h5 id="第二步："><a href="#第二步：" class="headerlink" title="第二步："></a>第二步：</h5><p>打开data文件，查看里面的文件类型：</p>
+<p> <img src="/Yan-Chang/img/3.png" alt="3"></p>
+<p>如果是以上类型说明启动mmapv1 存储引擎；但mongodb3.0以后采用的都是wiredTiger 存储引擎，导致data文件里存储的都是wt文件。</p>
+<h5 id="第三步："><a href="#第三步：" class="headerlink" title="第三步："></a>第三步：</h5><p>如果是wt文件请删除wt文件以及log下的日志文件。</p>
+<h5 id="第四步："><a href="#第四步：" class="headerlink" title="第四步："></a>第四步：</h5><p>停止MongoDB服务：</p>
+<p> <img src="/Yan-Chang/img/5.jpg" alt="5"></p>
+<h5 id="第五步："><a href="#第五步：" class="headerlink" title="第五步："></a>第五步：</h5><p>修改引擎</p>
+<p> <img src="/Yan-Chang/img/6.jpg" alt="6"></p>
+<p>（数据目录就是data的位置）</p>
+<h5 id="第六步："><a href="#第六步：" class="headerlink" title="第六步："></a>第六步：</h5><p>重新启动服务</p>
+<p> 重启成功后，打开Robomongo就会查看到数据库中的数据</p>
+<p> <img src="/Yan-Chang/img/7.png" alt="7"></p>
+<p>对于习惯使用Robomongo用想用MongoDB 3.0以上版本的用户第三种方法是不错的选择。</p>
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      <a href="/2016/11/03/mongodb可视化管理工具显示数据问题/" class="archive-article-date">
+  	<time datetime="2016-11-03T07:11:36.000Z" itemprop="datePublished"><i class="icon-clock"></i>2016-11-03</time>
+</a>
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb-可视化/">mongodb,可视化</a></li></ul>
+	</div>
+
+      
+
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+
+
   
     <article id="post-Echarts的简单引用" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-inner">
@@ -396,7 +486,7 @@
     
     	<section class="tools-section tools-section-tag">
     			<div class="widget tagcloud" id="js-tagcloud">
-    				<a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Nginx-同源跨域/" style="font-size: 10px;">Nginx 同源跨域</a>
+    				<a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Nginx-同源跨域/" style="font-size: 10px;">Nginx 同源跨域</a> <a href="/tags/mongodb-可视化/" style="font-size: 10px;">mongodb,可视化</a>
     			</div>
     	</section>
     
