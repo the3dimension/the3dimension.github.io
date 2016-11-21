@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>NodeJS 异步编程的简解 | 3dimension Team&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="于sqlite3中的实践简析
+
+工作所需，开始接触到node编程，本身接触不多，就结合工作简单介绍下node最大特点–异步编程。个人认为，异步相比于同步最大的区别就是在于对阻塞共享资源进行操作时代码执行的延时性，具体对于我的工作而言，就是后台服务端怎么确保对sqlite3数据库所有相关操作结束后再返回给前台一个执行结果。这对这个问题，node给我们提供了事件发布/订阅模式、Promise/Defe">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NodeJS 异步编程的简解">
+<meta property="og:url" content="http://yoursite.com/2016/11/21/NodeJS-异步编程的简解/index.html">
+<meta property="og:site_name" content="3dimension Team's Blog">
+<meta property="og:description" content="于sqlite3中的实践简析
+
+工作所需，开始接触到node编程，本身接触不多，就结合工作简单介绍下node最大特点–异步编程。个人认为，异步相比于同步最大的区别就是在于对阻塞共享资源进行操作时代码执行的延时性，具体对于我的工作而言，就是后台服务端怎么确保对sqlite3数据库所有相关操作结束后再返回给前台一个执行结果。这对这个问题，node给我们提供了事件发布/订阅模式、Promise/Defe">
+<meta property="og:updated_time" content="2016-11-21T14:16:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NodeJS 异步编程的简解">
+<meta name="twitter:description" content="于sqlite3中的实践简析
+
+工作所需，开始接触到node编程，本身接触不多，就结合工作简单介绍下node最大特点–异步编程。个人认为，异步相比于同步最大的区别就是在于对阻塞共享资源进行操作时代码执行的延时性，具体对于我的工作而言，就是后台服务端怎么确保对sqlite3数据库所有相关操作结束后再返回给前台一个执行结果。这对这个问题，node给我们提供了事件发布/订阅模式、Promise/Defe">
+  
+    <link rel="alternate" href="/atom.xml" title="3dimension Team&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">3dimension Team&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-NodeJS-异步编程的简解" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2016/11/21/NodeJS-异步编程的简解/" class="article-date">
+  <time datetime="2016-11-21T13:42:45.000Z" itemprop="datePublished">2016-11-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NodeJS 异步编程的简解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>于sqlite3中的实践简析</p>
+<blockquote>
+<p>工作所需，开始接触到node编程，本身接触不多，就结合工作简单介绍下node最大特点–异步编程。个人认为，异步相比于同步最大的区别就是在于对阻塞共享资源进行操作时代码执行的延时性，具体对于我的工作而言，就是后台服务端怎么确保对sqlite3数据库所有相关操作结束后再返回给前台一个执行结果。这对这个问题，node给我们提供了事件发布/订阅模式、Promise/Deferred模式、流程控制库这三种主要模式，在这我是用了后两者,就介绍一下吧。</p>
+<h2 id="1、流程控制库实现异步编程"><a href="#1、流程控制库实现异步编程" class="headerlink" title="1、流程控制库实现异步编程"></a>1、流程控制库实现异步编程</h2><p>在这儿选取最知名的流程控制流程控制模块–async，其本身提供了20多种API，在这儿呢我介绍4种典型且常用的协作模式： series、waterfall、each与eachseries，关于模块调用如下：</p>
+<p>-安装： ’ npm install async -g’</p>
+<p>-调用：‘ var async = require（’async‘）；’</p>
+<p>series和waterfall的控制模式类似，都是所谓的“异步的串行执行”，区别在于series实现一系列函数的串行执行但互相间不存在回调依赖；对应的waterfall模式则是一个函数的执行依赖于其上一个函数的回调。至于异常处理，所有模式类似–一旦某个函数出现异常，最终回调函数立马触发进行异常捕捉和处理。具体的模式和相关代码如下：</p>
+<p>模式： -series：        ‘ async.series([function],callback);   ‘</p>
+<p>​             -waterfall:      ‘ async.waterfall([function],callback);   ‘</p>
+<p>代码：series–对于表A，根据关联键值tid先删除其中用户user的表项在插入输入的新表</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div></pre></td><td class="code"><pre><div class="line">&gt; <span class="keyword">async</span>.series([<span class="function"><span class="keyword">function</span> <span class="title">delete</span> (<span class="params">callback</span>)</span>&#123;</div><div class="line">&gt;</div><div class="line">&gt;                db.run(<span class="string">"delete from A  where tid = ?"</span>,tid,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">&gt;</div><div class="line">&gt;                            <span class="keyword">async</span>.series([<span class="function"><span class="keyword">function</span> <span class="title">delete</span> (<span class="params">callback</span>)</span>&#123;</div><div class="line">&gt;</div><div class="line">&gt;                           db.run(<span class="string">"delete from A  where tid = ?"</span>,tid,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">&gt;</div><div class="line">&gt;                               <span class="keyword">if</span> (err) &#123;</div><div class="line">&gt;</div><div class="line">&gt;                                         callback(err);&#125;<span class="comment">//db操作出错，回调错误</span></div><div class="line">&gt;</div><div class="line">&gt;                               <span class="keyword">else</span> &#123;</div><div class="line">&gt;</div><div class="line">&gt;                                       callback();      &#125;<span class="comment">//操作正常，回调为null</span></div><div class="line">&gt;</div><div class="line">&gt;                             &#125;);</div><div class="line">&gt;</div><div class="line">&gt;                             &#125;,</div><div class="line">&gt;</div><div class="line">&gt;                <span class="function"><span class="keyword">function</span>  <span class="title">insert</span>  (<span class="params">callback</span>)</span>&#123;</div><div class="line">&gt;</div><div class="line">&gt;                   db.run(<span class="string">"insert into A (tid,uid) values (?,user)"</span>,tid,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">&gt;</div><div class="line">&gt;                             <span class="keyword">if</span> (err) &#123;</div><div class="line">&gt;</div><div class="line">&gt;                                         callback(err);&#125; </div><div class="line">&gt;</div><div class="line">&gt;                             <span class="keyword">else</span> &#123;</div><div class="line">&gt;</div><div class="line">&gt;                                         callback();  &#125; &#125;);</div><div class="line">&gt;</div><div class="line">&gt;                            &#125;    ],             </div><div class="line">&gt;</div><div class="line">&gt;                            <span class="comment">//最终处理</span></div><div class="line">&gt;</div><div class="line">&gt;                  <span class="function"><span class="keyword">function</span> （<span class="title">results</span>）</span>&#123;</div><div class="line">&gt;</div><div class="line">&gt;                     <span class="keyword">if</span> （results&#125;&#123;</div><div class="line">&gt;</div><div class="line">&gt;                            <span class="built_in">console</span>.log(<span class="string">"ERROR :"</span>+results);&#125;</div><div class="line">&gt;</div><div class="line">&gt;                           <span class="keyword">return</span>  callback(results);</div><div class="line">&gt;</div><div class="line">&gt;                       <span class="keyword">else</span> &#123;</div><div class="line">&gt;</div><div class="line">&gt;                          <span class="keyword">return</span>  callbacl(success);&#125;</div><div class="line">&gt;</div><div class="line">&gt;                          &#125; );</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>   waterfall:     表B跟关联表A中依次插入新的表项</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&gt;   <span class="keyword">async</span>.waterfall( [<span class="function"><span class="keyword">function</span> <span class="title">insertB</span> (<span class="params">callback</span>)</span>&#123;                  </div><div class="line">&gt;                       db.get(<span class="string">"insert into B set user = ?"</span>,user,<span class="function"><span class="keyword">function</span>(<span class="params">err,row</span>)</span>&#123;</div><div class="line">&gt;                           <span class="keyword">var</span> msg = &#123;<span class="attr">status</span> : <span class="literal">true</span>&#125;;</div><div class="line">&gt;                           <span class="keyword">if</span> (err)&#123;</div><div class="line">&gt;                             msg.status = <span class="literal">false</span> ;</div><div class="line">&gt;                             msg.error  = err;</div><div class="line">&gt;                             callback(msg);</div><div class="line">&gt;                           &#125;</div><div class="line">&gt;                           <span class="keyword">else</span> &#123;</div><div class="line">&gt;                             msg.result = row.tid;</div><div class="line">&gt;                             callback(msg);</div><div class="line">&gt;                           &#125;</div><div class="line">&gt;                           &#125; &#125;,</div><div class="line">&gt;                      <span class="function"><span class="keyword">function</span> <span class="title">insertA</span> (<span class="params">result,callback</span>) </span>&#123;</div><div class="line">&gt;                         <span class="keyword">if</span> (result.status == <span class="literal">false</span> )&#123;</div><div class="line">&gt;                                  callback(result);&#125;</div><div class="line">&gt;                         <span class="keyword">else</span> &#123;</div><div class="line">&gt;                         db.run(<span class="string">"insert into A where tid = ?"</span>,result.result,<span class="function"><span class="keyword">function</span>(<span class="params">err</span>)</span>&#123;</div><div class="line">&gt;                           <span class="keyword">if</span> (err)&#123;</div><div class="line">&gt;                             result.status = <span class="literal">false</span> ;</div><div class="line">&gt;                             result.error  =  err;</div><div class="line">&gt;                             callback(result);</div><div class="line">&gt;                           &#125;</div><div class="line">&gt;                           <span class="keyword">else</span> &#123;</div><div class="line">&gt;                             callback(result);</div><div class="line">&gt;                           &#125;</div><div class="line">&gt;                         &#125;</div><div class="line">&gt;                         &#125;</div><div class="line">&gt;                      &#125;],</div><div class="line">&gt;                      <span class="function"><span class="keyword">function</span>(<span class="params">results</span>)</span>&#123;</div><div class="line">&gt;                        <span class="keyword">if</span> (results.status == <span class="literal">false</span> )&#123;</div><div class="line">&gt;                          <span class="built_in">console</span>.log(<span class="string">"ERROR :"</span>+results.error);</div><div class="line">&gt;                          <span class="keyword">return</span> callback(results.error);</div><div class="line">&gt;                        &#125;</div><div class="line">&gt;                        <span class="keyword">else</span> &#123;</div><div class="line">&gt;                          <span class="keyword">return</span> callback(success);&#125;</div><div class="line">&gt;                      &#125;</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>each 跟eachseries 都是对于一系列大量SQL语句的集合操作，区别在于eachseries是逐条一个个执行SQL语句，而each可以全部执行不分排序。</p>
+<p>模式： ‘async.each/eachseries(SQLARR,function(singlesql,callback){},function(err,result){});’</p>
+<p>代码里面的SQLARR是即将执行的sql语句的字符化集合，singlesql为前面集合的每一项。</p>
+<h2 id="2、Promise-Deferred模式"><a href="#2、Promise-Deferred模式" class="headerlink" title="2、Promise/Deferred模式"></a>2、Promise/Deferred模式</h2><p>关于该模式，重点需要记住两项：一是promise是一个带有”.then()”方法的函数对象，then方法定义了该函数对象的状态转化（error 或者 done ，分别对应于处理函数的resolve和reject）；二是promise 状态转化后生成的是一个新的promise对象，它与前者可以理解为链式的引用，这样我可以利用对处理函数的表达实现整个异步流程的链式的编程风格。在这儿我举一个简单的读取两个文件的例子（可以以此类推）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&gt; var promise = readFile()</div><div class="line">&gt; var promise2 = promise.then(function (data) &#123;</div><div class="line">&gt;   return readAnotherFile() // 如果readFile成功，执行readAnotherFile</div><div class="line">&gt; &#125;, function (err) &#123;</div><div class="line">&gt;   console.error(err) // 如果readFile不成功，记录，但是还是执行readAnotherFile</div><div class="line">&gt;   return readAnotherFile()</div><div class="line">&gt; &#125;)</div><div class="line">&gt; promise2.then(console.log, console.error) // readAnotherFile函数的执行结果</div><div class="line">&gt;</div></pre></td></tr></table></figure>
+</blockquote>
+<p>&gt;</p>
+<blockquote>
+<p>在实际程序应用中，针对查询多项数据且每条数据关联多项他表时，我利用bluebird模块，循环创建多个promise对象，等所有内容查询完毕时执行回调，代码如下：</p>
+<p>‘ var Promise1 = require(‘bluebird’);’</p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2016/11/21/NodeJS-异步编程的简解/" data-id="civs5e05i0000nyb27gyhn20l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NodeJS-异步/">NodeJS 异步</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/11/21/angular2快速起步/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          angular2快速起步
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/11/21/自定义指令的学习和路由的学习/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">自定义指令的学习和路由的学习</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AngularJs-路由/">AngularJs 路由</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Echarts/">Echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx-同源跨域/">Nginx 同源跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJS-异步/">NodeJS 异步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service-Android/">Service Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular2/">angular2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb-可视化/">mongodb,可视化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AngularJs-路由/" style="font-size: 10px;">AngularJs 路由</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Nginx-同源跨域/" style="font-size: 10px;">Nginx 同源跨域</a> <a href="/tags/NodeJS-异步/" style="font-size: 10px;">NodeJS 异步</a> <a href="/tags/Service-Android/" style="font-size: 10px;">Service Android</a> <a href="/tags/angular2/" style="font-size: 10px;">angular2</a> <a href="/tags/mongodb-可视化/" style="font-size: 10px;">mongodb,可视化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2016/11/21/angular2快速起步/">angular2快速起步</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/21/NodeJS-异步编程的简解/">NodeJS 异步编程的简解</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/21/自定义指令的学习和路由的学习/">自定义指令的学习和路由的学习</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/21/用Service结合Activity完成自己的播放器/">用Service结合Activity完成自己的播放器</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/03/mongodb可视化管理工具显示数据问题/">mongodb可视化管理工具显示数据问题</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2016 3dimension Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
