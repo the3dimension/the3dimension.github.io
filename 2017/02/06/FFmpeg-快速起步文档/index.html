@@ -23,7 +23,7 @@ FFMPEG堪称自由软件中最完备的一套多媒体支持库，它几乎实�
 <meta property="og:image" content="http://yoursite.com/Zhu-Hai/img/4.png">
 <meta property="og:image" content="http://yoursite.com/Zhu-Hai/img/5.png">
 <meta property="og:image" content="http://yoursite.com/Zhu-Hai/img/6.png">
-<meta property="og:updated_time" content="2017-02-06T05:59:04.000Z">
+<meta property="og:updated_time" content="2017-02-06T06:05:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="FFmpeg  快速起步文档">
 <meta name="twitter:description" content="认识FFmpeg
@@ -152,13 +152,11 @@ FFMPEG堪称自由软件中最完备的一套多媒体支持库，它几乎实�
 <p><img src="/Zhu-Hai/img/2.png" alt=""></p>
 <p>  3.运行cmd命令，启动nginx.exe服务（start nginx.exe：启动nginx服务，然后看进程中是否有nginx.exe）</p>
 <p><img src="/Zhu-Hai/img/3.png" alt=""></p>
-<p>​                             !()[<img src="/Zhu-Hai/img/4.png" alt="">]</p>
+<p><img src="/Zhu-Hai/img/4.png" alt=""></p>
 <p>4.打开网页输入：localhost或者127.0.0.1本机ip</p>
-<p>!()[<img src="/Zhu-Hai/img/5.png" alt="">]</p>
+<p><img src="/Zhu-Hai/img/5.png" alt=""></p>
 <p><strong>相关软件的配置及应用Nginx服务启动之后就可以执行ffmpeg命令进行rtsp协议转成rtmp</strong>：</p>
-<blockquote>
-<p>ffmpeg -i “rtsp://admin:123456@192.168.10.116:554/mpeg4 “ -f flv -r 25 -s 640x480 -an “rtmp://192.168.8.130:1935/live/test2”</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ffmpeg -i &quot;rtsp://admin:123456@192.168.10.116:554/mpeg4 &quot; -f flv -r 25 -s 640x480 -an &quot;rtmp://192.168.8.130:1935/live/test2&quot;</div></pre></td></tr></table></figure>
 <p>1.运行cmd：执行ffmpeg命令语句ffmpeg：其实就是ffmpeg.exe，运行语句的时候.exe可不要</p>
 <p>-i：后面是我所需要的摄像头协议</p>
 <p>-f flv：后面是我要转到nginx的rtmp服务器上</p>
@@ -169,14 +167,14 @@ FFMPEG堪称自由软件中最完备的一套多媒体支持库，它几乎实�
 <p>test2：可以随便起，记得到时候访问rtmp时要一致</p>
 <p><em>回车执行ffmpeg语句</em></p>
 <p>成功如下图:</p>
-<p>​                    !()[<img src="/Zhu-Hai/img/6.png" alt="">]</p>
+<p><img src="/Zhu-Hai/img/6.png" alt=""></p>
 <p><strong>下载VLC media player 并输入相关地址即可查看视频</strong></p>
 <p>​    在<em>VLC media player</em>中打开媒体–&gt;打开网络串流–&gt;输入正确的url即可。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/06/FFmpeg-快速起步文档/" data-id="ciytotimy0003ky9ksj5d7t02" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/06/FFmpeg-快速起步文档/" data-id="ciytp29nw0003lm9kbi72h2ap" class="article-share-link">Share</a>
       
       
     </footer>
