@@ -86,33 +86,42 @@
         <p><strong>认识FFmpeg</strong></p>
 <p>FFMPEG堪称自由软件中最完备的一套多媒体支持库，它几乎实现了所有当下常见的数据封装格式、多媒体传输协议以及音视频编解码器。因此，对于从事多媒体技术开发的工程师来说，深入研究FFMPEG成为一门必不可少的工作，可以这样说，FFMPEG之于多媒体开发工程师的重要性正如kernel之于嵌入式系统工程师一般。</p>
 <p><strong>使用FFmpeg转化video和audio就会非常简单</strong></p>
-<blockquote>
-<p>$ ffmpeg -i input.mp4 output.avi</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ ffmpeg -i input.mp4 output.avi</div></pre></td></tr></table></figure>
 <p><strong>使用FFmpeg</strong></p>
 <p>FFmpeg提供命令行工具ffmpeg，其中使用方法如下（方括号表示可选项，花括号表示必选项目）：</p>
-<blockquote>
-<p>ffmpeg [global options] {[infile options][‘-i’ ‘infile’] …} {[outfile options] ‘outfile’ …}</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ffmpeg [global options] &#123;infile options ...&#125; &#123;[outfile options] &apos;outfile&apos; ...&#125;</div></pre></td></tr></table></figure>
 <p> <em>基本选项</em></p>
-<p>​         *-formats：列出支持的文件格式。</p>
-<p>​         *-codecs：列出支持的编解码器。</p>
-<p>​         *-decoders：列出支持的解码器。</p>
-<p>​         *-encoders：列出支持的编码器。</p>
-<p>​     *-protocols：列出支持的协议。</p>
-<p>​     *-filters：列出支持的滤镜。</p>
-<p>​     *-pix_fmts：列出支持的图像采样格式。</p>
-<p>​     *-sample_fmts：列出支持的声音采样格式。</p>
+<ul>
+<li><p>-formats：列出支持的文件格式。</p>
+</li>
+<li><p>-codecs：列出支持的编解码器。</p>
+</li>
+<li><p>-decoders：列出支持的解码器。</p>
+</li>
+<li><p>-encoders：列出支持的编码器。</p>
+</li>
+<li><p>-protocols：列出支持的协议。</p>
+</li>
+<li><p>-filters：列出支持的滤镜。</p>
+</li>
+<li><p>-pix_fmts：列出支持的图像采样格式。</p>
+</li>
+<li><p>-sample_fmts：列出支持的声音采样格式。</p>
+</li>
+</ul>
 <p><em>常用输入选项</em></p>
-<p>​    *-i filename：指定输入文件名。</p>
-<p>​    *-f fmt：强制设定文件格式，需使用能力集列表中的名称（缺省是根据扩展名选择的）。</p>
-<p>​    *-ss hh:mm:ss[.xxx]：设定输入文件的起始时间点，启动后将跳转到此时间点然后开始读取数据。</p>
+<ul>
+<li><p>-i filename：指定输入文件名。</p>
+</li>
+<li><p>-f fmt：强制设定文件格式，需使用能力集列表中的名称（缺省是根据扩展名选择的）。</p>
+</li>
+<li><p>-ss hh:mm:ss[.xxx]：设定输入文件的起始时间点，启动后将跳转到此时间点然后开始读取数据。</p>
+</li>
+</ul>
 <p><em>下载FFmpeg</em></p>
 <p>​          FFmpeg的官网<a href="https://ffmpeg.org/" target="_blank" rel="external">https://ffmpeg.org/</a></p>
 <p>​          FFmpeg的源码</p>
-<blockquote>
-<p>git clone <a href="https://git.ffmpeg.org/ffmpeg.git" target="_blank" rel="external">https://git.ffmpeg.org/ffmpeg.git</a> ffmpeg</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git clone https://git.ffmpeg.org/ffmpeg.git ffmpeg</div></pre></td></tr></table></figure>
 <h2 id="FFmpeg的转码（RTSP协议转换RTMP直播协议）"><a href="#FFmpeg的转码（RTSP协议转换RTMP直播协议）" class="headerlink" title="FFmpeg的转码（RTSP协议转换RTMP直播协议）"></a>FFmpeg的转码（RTSP协议转换RTMP直播协议）</h2><p><strong>初步了解</strong></p>
 <p>　RTSP协议也是广泛使用的直播/点播流媒体协议，最近实现了一个RTSP协议转换RTMP直播协议的程序，为的是可以接收远端设备或服务器的多路RTSP直播数据，实时转换为RTMP直播协议，推送到FMS、Red5、wowza server等RTMP服务器，以实现flash观看RTSP直播源的需求。程序同时也具备<strong>从FLV文件获取输入数据并转换RTMP直播</strong>。</p>
 <p><strong>nginx-rmtp-module是<a href="http://baike.baidu.com/view/926025.htm?fr=aladdin" target="_blank" rel="external">Nginx服务器</a>的流媒体插件</strong>：</p>
@@ -149,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/06/FFmpeg-快速起步文档/" data-id="ciytokx8t0003ka9k256ho02s" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/06/FFmpeg-快速起步文档/" data-id="ciytotimy0003ky9ksj5d7t02" class="article-share-link">Share</a>
       
       
     </footer>
@@ -244,7 +253,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/21/angular2快速起步/" data-id="ciytokx8z0006ka9k0szc6kbr" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/21/angular2快速起步/" data-id="ciytotin40006ky9kmprs44ej" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/angular2/">angular2</a></li></ul>
@@ -312,7 +321,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/21/NodeJS-异步编程的简解/" data-id="ciytokx9c000jka9kkkrhnbsh" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/21/NodeJS-异步编程的简解/" data-id="ciytotini000jky9kf8qk8l5m" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/NodeJS-异步/">NodeJS 异步</a></li></ul>
@@ -381,7 +390,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/21/自定义指令的学习和路由的学习/" data-id="ciytokx98000eka9k8h8vw926" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/21/自定义指令的学习和路由的学习/" data-id="ciytotine000eky9kyk0duqp4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AngularJs-路由/">AngularJs 路由</a></li></ul>
@@ -433,7 +442,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/21/用Service结合Activity完成自己的播放器/" data-id="ciytokx9f000lka9kmq0os5ew" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/21/用Service结合Activity完成自己的播放器/" data-id="ciytotinl000lky9kyvwpd4n1" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Service-Android/">Service Android</a></li></ul>
@@ -500,7 +509,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/03/mongodb可视化管理工具显示数据问题/" data-id="ciytokx96000aka9kq7mrzgql" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/03/mongodb可视化管理工具显示数据问题/" data-id="ciytotind000aky9k715vf4s4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb-可视化/">mongodb,可视化</a></li></ul>
@@ -563,7 +572,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/02/Echarts的简单引用/" data-id="ciytokx8o0001ka9kl5f3pxu7" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/02/Echarts的简单引用/" data-id="ciytotimt0001ky9kvex37v6h" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Echarts/">Echarts</a></li></ul>
@@ -630,7 +639,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/01/Nginx-服务器的搭建与通过配置解决同源跨域问题/" data-id="ciytokx99000gka9kjt97cdds" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/01/Nginx-服务器的搭建与通过配置解决同源跨域问题/" data-id="ciytoting000gky9kfnzmkdzt" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Nginx-同源跨域/">Nginx 同源跨域</a></li></ul>
@@ -677,7 +686,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/01/hello-world/" data-id="ciytokx920008ka9kkyn76ip2" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2016/11/01/hello-world/" data-id="ciytotin80008ky9k2se2iybk" class="article-share-link">Share</a>
       
       
     </footer>
