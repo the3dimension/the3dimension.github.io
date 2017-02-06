@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>FFmpeg  快速起步文档 | 3dimension Team&#39;s Blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="认识FFmpeg
+FFMPEG堪称自由软件中最完备的一套多媒体支持库，它几乎实现了所有当下常见的数据封装格式、多媒体传输协议以及音视频编解码器。因此，对于从事多媒体技术开发的工程师来说，深入研究FFMPEG成为一门必不可少的工作，可以这样说，FFMPEG之于多媒体开发工程师的重要性正如kernel之于嵌入式系统工程师一般。
+使用FFmpeg转化video和audio就会非常简单
+
+$ ffmpeg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="FFmpeg  快速起步文档">
+<meta property="og:url" content="http://yoursite.com/2017/02/06/FFmpeg-快速起步文档/index.html">
+<meta property="og:site_name" content="3dimension Team's Blog">
+<meta property="og:description" content="认识FFmpeg
+FFMPEG堪称自由软件中最完备的一套多媒体支持库，它几乎实现了所有当下常见的数据封装格式、多媒体传输协议以及音视频编解码器。因此，对于从事多媒体技术开发的工程师来说，深入研究FFMPEG成为一门必不可少的工作，可以这样说，FFMPEG之于多媒体开发工程师的重要性正如kernel之于嵌入式系统工程师一般。
+使用FFmpeg转化video和audio就会非常简单
+
+$ ffmpeg">
+<meta property="og:image" content="http://yoursite.com/Zhu-Hai/img/1.png">
+<meta property="og:image" content="http://yoursite.com/Zhu-Hai/img/2.png">
+<meta property="og:image" content="http://yoursite.com/Zhu-Hai/img/3.png">
+<meta property="og:image" content="http://yoursite.com/Zhu-Hai/img/4.png">
+<meta property="og:image" content="http://yoursite.com/Zhu-Hai/img/5.png">
+<meta property="og:image" content="http://yoursite.com/Zhu-Hai/img/6.png">
+<meta property="og:updated_time" content="2017-02-06T05:47:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="FFmpeg  快速起步文档">
+<meta name="twitter:description" content="认识FFmpeg
+FFMPEG堪称自由软件中最完备的一套多媒体支持库，它几乎实现了所有当下常见的数据封装格式、多媒体传输协议以及音视频编解码器。因此，对于从事多媒体技术开发的工程师来说，深入研究FFMPEG成为一门必不可少的工作，可以这样说，FFMPEG之于多媒体开发工程师的重要性正如kernel之于嵌入式系统工程师一般。
+使用FFmpeg转化video和audio就会非常简单
+
+$ ffmpeg">
+<meta name="twitter:image" content="http://yoursite.com/Zhu-Hai/img/1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="3dimension Team&#39;s Blog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">3dimension Team&#39;s Blog</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-FFmpeg-快速起步文档" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/06/FFmpeg-快速起步文档/" class="article-date">
+  <time datetime="2017-02-06T04:04:25.000Z" itemprop="datePublished">2017-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      FFmpeg  快速起步文档
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>认识FFmpeg</strong></p>
+<p>FFMPEG堪称自由软件中最完备的一套多媒体支持库，它几乎实现了所有当下常见的数据封装格式、多媒体传输协议以及音视频编解码器。因此，对于从事多媒体技术开发的工程师来说，深入研究FFMPEG成为一门必不可少的工作，可以这样说，FFMPEG之于多媒体开发工程师的重要性正如kernel之于嵌入式系统工程师一般。</p>
+<p><strong>使用FFmpeg转化video和audio就会非常简单</strong></p>
+<blockquote>
+<p>$ ffmpeg -i input.mp4 output.avi</p>
+</blockquote>
+<p><strong>使用FFmpeg</strong></p>
+<p>FFmpeg提供命令行工具ffmpeg，其中使用方法如下（方括号表示可选项，花括号表示必选项目）：</p>
+<blockquote>
+<p>ffmpeg [global options] {[infile options][‘-i’ ‘infile’] …} {[outfile options] ‘outfile’ …}</p>
+</blockquote>
+<p> <em>基本选项</em></p>
+<p>​         *-formats：列出支持的文件格式。</p>
+<p>​         *-codecs：列出支持的编解码器。</p>
+<p>​         *-decoders：列出支持的解码器。</p>
+<p>​         *-encoders：列出支持的编码器。</p>
+<p>​     *-protocols：列出支持的协议。</p>
+<p>​     *-filters：列出支持的滤镜。</p>
+<p>​     *-pix_fmts：列出支持的图像采样格式。</p>
+<p>​     *-sample_fmts：列出支持的声音采样格式。</p>
+<p><em>常用输入选项</em></p>
+<p>​    *-i filename：指定输入文件名。</p>
+<p>​    *-f fmt：强制设定文件格式，需使用能力集列表中的名称（缺省是根据扩展名选择的）。</p>
+<p>​    *-ss hh:mm:ss[.xxx]：设定输入文件的起始时间点，启动后将跳转到此时间点然后开始读取数据。</p>
+<p><em>下载FFmpeg</em></p>
+<p>​          FFmpeg的官网<a href="https://ffmpeg.org/" target="_blank" rel="external">https://ffmpeg.org/</a></p>
+<p>​          FFmpeg的源码</p>
+<blockquote>
+<p>git clone <a href="https://git.ffmpeg.org/ffmpeg.git" target="_blank" rel="external">https://git.ffmpeg.org/ffmpeg.git</a> ffmpeg</p>
+</blockquote>
+<h2 id="FFmpeg的转码（RTSP协议转换RTMP直播协议）"><a href="#FFmpeg的转码（RTSP协议转换RTMP直播协议）" class="headerlink" title="FFmpeg的转码（RTSP协议转换RTMP直播协议）"></a>FFmpeg的转码（RTSP协议转换RTMP直播协议）</h2><p><strong>初步了解</strong></p>
+<p>　RTSP协议也是广泛使用的直播/点播流媒体协议，最近实现了一个RTSP协议转换RTMP直播协议的程序，为的是可以接收远端设备或服务器的多路RTSP直播数据，实时转换为RTMP直播协议，推送到FMS、Red5、wowza server等RTMP服务器，以实现flash观看RTSP直播源的需求。程序同时也具备<strong>从FLV文件获取输入数据并转换RTMP直播</strong>。</p>
+<p><strong>nginx-rmtp-module是<a href="http://baike.baidu.com/view/926025.htm?fr=aladdin" target="_blank" rel="external">Nginx服务器</a>的流媒体插件</strong>：</p>
+<p>   Nginx本身是一个非常出色的HTTP服务器,ffmpeg是非常好的音视频解决方案.这两个东西通过一个nginx的模块nginx-rtmp-module,组合在一起即可以搭建一个功能相对比较完善的流媒体服务器.这个流媒体服务器可以支持RTMP和HLS(Live Http Stream)。nginx配合ffmpeg做流媒体服务器的原理是:nginx通过rtmp模块提供rtmp服务, ffmpeg推送一个rtmp流到nginx, 然后客户端通过访问nginx来收看实时视频流。</p>
+<p>​                 <strong>:nginx-rmtp-module是一个开源的项目可以在<a href="https://github.com/arut/nginx-rtmp-module" target="_blank" rel="external">https://github.com/arut/nginx-rtmp-module</a>下载</strong></p>
+<p>1下载并安装<a href="http://nginx.org/en/download.html" target="_blank" rel="external">Nginx</a></p>
+<p>（现在需要使用nginx-rtmp.exe这个程序， 网上可以搜索到该软件已经集成rtmp模块的windows版本）</p>
+<p><img src="/Zhu-Hai/img/1.png" alt=""></p>
+<p>2.打开conf文件夹找到nginx.conf文件,配置rtmp</p>
+<p><img src="/Zhu-Hai/img/2.png" alt=""></p>
+<p>  3.运行cmd命令，启动nginx.exe服务（start nginx.exe：启动nginx服务，然后看进程中是否有nginx.exe）</p>
+<p><img src="/Zhu-Hai/img/3.png" alt=""></p>
+<p>​                             !()[<img src="/Zhu-Hai/img/4.png" alt="">]</p>
+<p>4.打开网页输入：localhost或者127.0.0.1本机ip</p>
+<p>!()[<img src="/Zhu-Hai/img/5.png" alt="">]</p>
+<p><strong>相关软件的配置及应用Nginx服务启动之后就可以执行ffmpeg命令进行rtsp协议转成rtmp</strong>：</p>
+<blockquote>
+<p>ffmpeg -i “rtsp://admin:123456@192.168.10.116:554/mpeg4 “ -f flv -r 25 -s 640x480 -an “rtmp://192.168.8.130:1935/live/test2”</p>
+</blockquote>
+<p>1.运行cmd：执行ffmpeg命令语句ffmpeg：其实就是ffmpeg.exe，运行语句的时候.exe可不要</p>
+<p>-i：后面是我所需要的摄像头协议</p>
+<p>-f flv：后面是我要转到nginx的rtmp服务器上</p>
+<p>-s：视频解析度：（分配率）也就是能调视屏的清晰度，如果在本机上测试建议640*480就好，改变视屏流的解析式cpu会消耗很大(rtmp服务地址：rtmp://192.168.3.138:1935/myapp/test2)</p>
+<p>192.168.3.138：nginx启动的机器ip</p>
+<p>1935：端口号（之前在nginx.conf里配置的）</p>
+<p>myapp：是application 后面的名称</p>
+<p>test2：可以随便起，记得到时候访问rtmp时要一致</p>
+<p><em>回车执行ffmpeg语句</em></p>
+<p>成功如下图:</p>
+<p>​                    !()[<img src="/Zhu-Hai/img/6.png" alt="">]</p>
+<p><strong>下载VLC media player 并输入相关地址即可查看视频</strong></p>
+<p>​    在<em>VLC media player</em>中打开媒体–&gt;打开网络串流–&gt;输入正确的url即可。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/06/FFmpeg-快速起步文档/" data-id="ciytoekmq0008io9k2p5ap0s3" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2016/11/21/angular2快速起步/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">angular2快速起步</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/AngularJs-路由/">AngularJs 路由</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Echarts/">Echarts</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Nginx-同源跨域/">Nginx 同源跨域</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/NodeJS-异步/">NodeJS 异步</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Service-Android/">Service Android</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/angular2/">angular2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/mongodb-可视化/">mongodb,可视化</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/AngularJs-路由/" style="font-size: 10px;">AngularJs 路由</a> <a href="/tags/Echarts/" style="font-size: 10px;">Echarts</a> <a href="/tags/Nginx-同源跨域/" style="font-size: 10px;">Nginx 同源跨域</a> <a href="/tags/NodeJS-异步/" style="font-size: 10px;">NodeJS 异步</a> <a href="/tags/Service-Android/" style="font-size: 10px;">Service Android</a> <a href="/tags/angular2/" style="font-size: 10px;">angular2</a> <a href="/tags/mongodb-可视化/" style="font-size: 10px;">mongodb,可视化</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">二月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2016/11/">十一月 2016</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/02/06/FFmpeg-快速起步文档/">FFmpeg  快速起步文档</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/21/angular2快速起步/">angular2快速起步</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/21/NodeJS-异步编程的简解/">NodeJS 异步编程的简解</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/21/自定义指令的学习和路由的学习/">自定义指令的学习和路由的学习</a>
+          </li>
+        
+          <li>
+            <a href="/2016/11/21/用Service结合Activity完成自己的播放器/">用Service结合Activity完成自己的播放器</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 3dimension Team<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
